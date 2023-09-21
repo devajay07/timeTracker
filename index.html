@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Time Tracker</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <h1>Time Tracker</h1>
+    <div id="timer">
+      <p>Current Time: <span id="currentTime"></span></p>
+      <p>Total Time: <span id="totalTime">0 hours</span></p>
+      <div id="countdown" style="display: none">
+        <p>Countdown Timer: <span id="countdownDisplay">00:00:00</span></p>
+      </div>
+    </div>
+    <button id="startButton">Start</button>
+    <button id="endButton">End</button>
+    <div id="timeDetails">
+      <h2>Time Details</h2>
+      <ul id="timeList"></ul>
+    </div>
+  </body>
+  <script src="index.js"></script>
+</html>
