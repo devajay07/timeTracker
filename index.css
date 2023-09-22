@@ -102,3 +102,21 @@ li {
   font-weight: bold;
   color: #333;
 }
+
+#clearStorageButton {
+  font-size: 16px;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 3rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #f44336;
+  color: #fff;
+}
+
+#clearStorageButton:hover {
+  background-color: #d32f2f;
+}
+
+/* ... Existing CSS ... */

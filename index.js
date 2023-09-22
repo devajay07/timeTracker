@@ -109,3 +109,24 @@ document.addEventListener("DOMContentLoaded", function () {
   // Update the current time every second
   setInterval(updateCurrentTime, 1000);
 });
+const clearStorageButton = document.getElementById("clearStorageButton");
+
+// Function to clear local storage
+function clearLocalStorage() {
+  localStorage.removeItem("totalTime");
+  localStorage.removeItem("timeDetails");
+  totalTime = 0;
+  timeDetails = [];
+  // totalTimeElement.textContent = "0 hours";
+  timeList.innerHTML = ""; // Clear the time details list
+}
+
+clearStorageButton.addEventListener("click", function () {
+  const confirmation = confirm("Are you sure you want to clear all data?");
+  if (confirmation) {
+    clearLocalStorage();
+    location.reload(true);
+  }
+});
+
+// ... Existing code ...
