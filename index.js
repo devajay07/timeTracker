@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let totalTime = 0;
   let timeDetails = [];
 
+  function formatTime(time) {
+    return time < 10 ? `0${time}` : time;
+  }
+
   function startCountdown() {
     countdownElement.style.display = "block";
     const endTime = new Date().getTime() + 60 * 60 * 1000; // 1 hour in milliseconds
@@ -23,30 +27,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (timeLeft <= 0) {
         clearInterval(countdownInterval);
-        countdownDisplay.textContent = "00:00:00";
+        countdownDisplay.textContent = "00:00"; // Removed seconds display
         countdownElement.style.display = "none";
       } else {
-        const hours = Math.floor(
-          (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
+        const hours = Math.floor(timeLeft / (1000 * 60 * 60));
         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
         countdownDisplay.textContent = `${formatTime(hours)}:${formatTime(
           minutes
-        )}:${formatTime(seconds)}`;
+        )}`;
       }
-    }
-
-    function formatTime(time) {
-      return time < 10 ? `0${time}` : time;
     }
   }
 
   // Function to update the current time display
   function updateCurrentTime() {
     const now = new Date();
-    currentTimeElement.textContent = now.toLocaleTimeString();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    currentTimeElement.textContent = `${formatTime(hours)}:${formatTime(
+      minutes
+    )}`;
   }
+
+  updateCurrentTime();
 
   // Function to start the timer
   startButton.addEventListener("click", function () {
@@ -66,8 +69,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const timeDiff = (endTime - startTime) / 3600000; // Convert milliseconds to hours
       totalTime += timeDiff;
       timeDetails.push({
-        start: startTime.toLocaleTimeString(),
-        end: endTime.toLocaleTimeString(),
+        start: `${formatTime(startTime.getHours())}:${formatTime(
+          startTime.getMinutes()
+        )}`,
+        end: `${formatTime(endTime.getHours())}:${formatTime(
+          endTime.getMinutes()
+        )}`,
       });
 
       // Update the UI
@@ -77,9 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Update the time details list
       const listItem = document.createElement("li");
-      listItem.textContent = `${
-        timeDetails.length
-      }. ${startTime.toLocaleTimeString()} - ${endTime.toLocaleTimeString()}`;
+      listItem.textContent = `${timeDetails.length}. ${formatTime(
+        startTime.getHours()
+      )}:${formatTime(startTime.getMinutes())} - ${formatTime(
+        endTime.getHours()
+      )}:${formatTime(endTime.getMinutes())}`;
       timeList.appendChild(listItem);
 
       // Save data to local storage
@@ -106,9 +115,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Update the current time every second
-  setInterval(updateCurrentTime, 1000);
+  // Update the current time every minute
+  setInterval(updateCurrentTime, 60000);
 });
+
 const clearStorageButton = document.getElementById("clearStorageButton");
 
 // Function to clear local storage
@@ -117,7 +127,6 @@ function clearLocalStorage() {
   localStorage.removeItem("timeDetails");
   totalTime = 0;
   timeDetails = [];
-  // totalTimeElement.textContent = "0 hours";
   timeList.innerHTML = ""; // Clear the time details list
 }
 
@@ -125,8 +134,6 @@ clearStorageButton.addEventListener("click", function () {
   const confirmation = confirm("Are you sure you want to clear all data?");
   if (confirmation) {
     clearLocalStorage();
-    location.reload(true);
+    location.reload(true); // Reload the page after clearing storage
   }
 });
-
-// ... Existing code ...
