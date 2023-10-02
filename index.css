@@ -100,7 +100,7 @@ li {
 }
 
 #countdown {
-  display: none;
+  display: block;
   margin-top: 20px;
 }
 
@@ -110,11 +110,17 @@ li {
   color: #333;
 }
 
+.btnDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #clearStorageButton {
   font-size: 16px;
   padding: 10px 20px;
-  position: absolute;
-  bottom: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -127,3 +133,34 @@ li {
 }
 
 /* ... Existing CSS ... */
+
+#historicalDataSection {
+  position: fixed;
+  bottom: 5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 10px 50px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.exam-reminder {
+  text-align: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 10px;
+  margin: 2px 0;
+}
+
+.exam-reminder p {
+  font-size: 1.3rem;
+  margin: 0; /* Remove default margin */
+}
+
+.exam-reminder span {
+  font-weight: bold; /* Make the countdown text bold */
+  color: #007bff; /* Blue color for the countdown text */
+}
